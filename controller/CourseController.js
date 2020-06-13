@@ -41,7 +41,7 @@ exports.createCourseProcess = (req,res)=>{
     // course.save()
     // .then(()=>res.redirect('/courses/listCourses'))
     // .catch(console.log("error"))
-
+    
     course.save()
         .then(data=>res.json(data))
         .catch(err=>res.json(err))

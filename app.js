@@ -13,7 +13,8 @@ mongoose.connect(
     'mongodb+srv://devuser:abcd1234@cluster0-mlro7.mongodb.net/LMS?retryWrites=true&w=majority',
     {
         useNewUrlParser:true, //new technique of parsing the database url
-        useUnifiedTopology:true
+        useUnifiedTopology:true,
+        useCreateIndex:true
     },
     ()=> console.log('DB Connected')
 )
