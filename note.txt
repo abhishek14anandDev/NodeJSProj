@@ -2,3 +2,5 @@ https://sequelize.org/v5/manual/getting-started.html
 
 
 http://oracle.github.io/node-oracledb/doc/api.html
+
+https://drive.google.com/drive/folders/1xTFfYFC6LmOtJyvnIMNk3Fi_RN4HQ4BX

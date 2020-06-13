@@ -7,7 +7,7 @@ exports.createCourseValidator = (req,res,nxt)=>{
 
     if(name === '') errors.name = 'Name cannnot be blank';
 
-    if(Object.jeys(errors).length === 0)
+    if(Object.keys(errors).length === 0)
         nxt()
     else
         res.redirect('/courses/createCourse');
