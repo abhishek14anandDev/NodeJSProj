@@ -1,29 +1,44 @@
-exports.listCourses = (req, res) => {
+const listCourse = require('../model/Course')
+
+
+exports.createCourse = (req,res)=>{
     const data = {
-        title: 'LMS | List of Courses',
-        courses: [
-            { 
-                photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png', 
-                name: 'NodeJS Training', 
-                duration: '36 Hours' 
-            },
-            { 
-                photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png', 
-                name: 'ReactJS Training', 
-                duration: '36 Hours' 
-            },
-            { 
-                photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png', 
-                name: 'Angular Training', 
-                duration: '36 Hours' 
-            },
-            { 
-                photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/1200px-Node.js_logo.svg.png', 
-                name: 'MongoDB Training', 
-                duration: '36 Hours' 
-            }
-        ]
+        title:'LMS| Add Course',
     }
-    
-    res.render('listCourses', data)
+ 
+    res.render('createCourse', data)
+ }
+
+
+exports.listCourses = (req, res) => {
+    listCourse.find()
+        .then(courses => {
+            const data = {
+                title: 'LMS | List of Courses',
+                courses
+            }
+            console.log(data);
+            res.render('listCourses', data)
+        })
+        .catch(err => {
+            res.json(err)
+        })
 }
+
+exports.createCourseProcess = (req,res)=>{
+    console.log(req.body);
+
+    const {name,description,photo, duration} = req.body;
+
+    const course = new listCourse();
+    course.name = name;
+    course.description = description;
+    course.photo = photo;
+    course.duration = Number(duration);
+
+    course.save()
+    .then(()=>res.redirect('/courses/listCourses'))
+    .catch(console.log("error"))
+    // res.send('create course works' )
+}
+
