@@ -34,16 +34,60 @@ exports.RegisterUser = (req,res) =>{
 
 //Login user
 exports.Login = (req,res)=>{
-    const emailId = 
-    user.finnd
-    res.send(`I am in login`)
+    const emailId = req.body.EmailId;
+    const password = req.body.password;  
+
+    user.find({EmailId: emailId,password: password})
+        .then(           
+            data=>{
+                if(data.length == 0){
+                    res.status(404).send({
+                       Errormessage :`invalid credential` 
+                    })
+                }else{
+                    res.status(200).json(data)
+                }                
+            }
+        )
+        .catch(err =>{
+            res.status(500).send({
+                ServerErrorMessage : `Oops there is some problem with dat`
+            })
+        })
+   
 }
 
 //change password
 exports.ChangePassword = (req,res)=>{
-    res.send(`I am in change password`)
+    const emailId = req.body.EmailId;
+    const password = req.body.password; 
+    const NewPassword = req.body.NewPassword;
+
+    user.findOne({EmailId: emailId,password: password})
+        .then(           
+            data=>{
+                console.log(data)
+                if(!data){
+                    res.status(404).send({
+                       Errormessage :`invalid credential` 
+                    })
+                }else{
+                    data.password = NewPassword;
+                    data.save()
+                    res.status(200).send({
+                        SuccessMessage :`You have changed you passowrd`
+                    })
+                    
+                }                
+            }
+        )
+        .catch(err =>{
+            res.status(500).send({
+                ServerErrorMessage : `Oops there is some problem with dat`
+            })
+        })
 }
 
 exports.EditProfile = (req,res)=>{
-    res.send(`I am in Edit Profile`)
+    
 }
