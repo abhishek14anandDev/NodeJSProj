@@ -14,10 +14,10 @@ exports.listCourses = (req, res) => {
     listCourse.find()
         .then(courses => {
             const data = {
-                title: 'LMS | List of Courses',
+               // title: 'LMS | List of Courses',
                 courses
             }
-            console.log(data);
+            //console.log(data);
             res.json(data)
         })
         .catch(err => {

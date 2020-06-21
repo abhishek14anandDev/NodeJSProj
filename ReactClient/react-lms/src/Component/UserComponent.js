@@ -23,16 +23,15 @@ class UserComponent extends React.Component{
          EmailId : this.state.EmailId,
          password : this.state.password
       }
-      axios.post('http://localhost:8000/login',{
-         EmailId : this.state.EmailId,
-         password : this.state.password
-      },{   
-            'Accept' : 'application/json',      
-            'Content-Type': 'application/json'      
-      })
+
+      let url = "http://localhost:8000/login";
+     
+      
+      axios.post('http://localhost:8000/login',{EmailId : this.state.EmailId,
+      password : this.state.password })
          .then(
             res=>{
-               alert(res)
+               alert(JSON.stringify(res))
                //return <Redirect to="/CourseDashboard"/>  
                
                this.setState({status:true})
@@ -41,16 +40,10 @@ class UserComponent extends React.Component{
          .catch(err=>{
             
             alert(err + "I am in catch block")
+            
             //this.setState({status:true})
          })
-      //let history = useHistory();
-      //this.props.history.push('/CourseDashboard01')
-      //history.push("/CourseDashboard01");
-      //return <Redirect to="/CourseDashboard"/>
      
-      //return <Redirect to="/CourseDashboard"/>
-      //this.setState({status:true})
-        //this.status = true
    }
     render(){ 
       
@@ -69,7 +62,7 @@ class UserComponent extends React.Component{
          <div style={{display:"flex"}}>
          <div className="col-md-6 col-sm-12">
             <div id="loginForm" className="login-form" >
-               <form action="">
+              
                   <div className="form-group">
                      <label>User Name</label>
                      <input type="text" className="form-control" placeholder="User Name" onChange={this.HandleuserNameChanges}/>
@@ -80,7 +73,7 @@ class UserComponent extends React.Component{
                   </div>
                   <button className="btn btn-black"  onClick={this.validateUser}>Login</button>
                  
-               </form>
+              
             </div>
 
            
