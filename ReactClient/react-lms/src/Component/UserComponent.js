@@ -3,22 +3,53 @@ import '../Content/css/login.css'
 
 import './CourseDashboard'
 import { Redirect,useHistory,withRouter } from 'react-router-dom';
+import axios from 'axios'
 
 class UserComponent extends React.Component{
    constructor(props){
       super(props)
       this.status = false;
    }
-   state = {status : false}
-   
+   state = {status : false,EmailId:'',password : ''}
+    
+   HandleuserNameChanges = (event) =>{
+      this.setState({EmailId : event.target.value})
+   }
+   handlePasswordChanges = (event)=>{
+      this.setState({password : event.target.value})
+   }
    validateUser=()=>{
+      const user = {
+         EmailId : this.state.EmailId,
+         password : this.state.password
+      }
+      axios.post('http://localhost:8000/login',{
+         EmailId : this.state.EmailId,
+         password : this.state.password
+      },{   
+            'Accept' : 'application/json',      
+            'Content-Type': 'application/json'      
+      })
+         .then(
+            res=>{
+               alert(res)
+               //return <Redirect to="/CourseDashboard"/>  
+               
+               this.setState({status:true})
+            }
+         )
+         .catch(err=>{
+            
+            alert(err + "I am in catch block")
+            //this.setState({status:true})
+         })
       //let history = useHistory();
       //this.props.history.push('/CourseDashboard01')
       //history.push("/CourseDashboard01");
       //return <Redirect to="/CourseDashboard"/>
      
       //return <Redirect to="/CourseDashboard"/>
-        this.setState({status:true})
+      //this.setState({status:true})
         //this.status = true
    }
     render(){ 
@@ -38,14 +69,14 @@ class UserComponent extends React.Component{
          <div style={{display:"flex"}}>
          <div className="col-md-6 col-sm-12">
             <div id="loginForm" className="login-form" >
-               <form>
+               <form action="">
                   <div className="form-group">
                      <label>User Name</label>
-                     <input type="text" className="form-control" placeholder="User Name"/>
+                     <input type="text" className="form-control" placeholder="User Name" onChange={this.HandleuserNameChanges}/>
                   </div>
                   <div className="form-group">
                      <label>Password</label>
-                     <input type="password" className="form-control" placeholder="Password"/>
+                     <input type="password" className="form-control" placeholder="Password" onChange={this.handlePasswordChanges}/>
                   </div>
                   <button className="btn btn-black"  onClick={this.validateUser}>Login</button>
                  
