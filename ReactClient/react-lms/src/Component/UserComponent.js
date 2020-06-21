@@ -1,10 +1,31 @@
 import React from 'react'
 import '../Content/css/login.css'
 
+import './CourseDashboard'
+import { Redirect,useHistory,withRouter } from 'react-router-dom';
+
 class UserComponent extends React.Component{
-    render(){
-        return(
-            
+   constructor(props){
+      super(props)
+      this.status = false;
+   }
+   state = {status : false}
+   
+   validateUser=()=>{
+      //let history = useHistory();
+      //this.props.history.push('/CourseDashboard01')
+      //history.push("/CourseDashboard01");
+      //return <Redirect to="/CourseDashboard"/>
+     
+      //return <Redirect to="/CourseDashboard"/>
+        this.setState({status:true})
+        //this.status = true
+   }
+    render(){ 
+      
+       if(this.state.status)
+         return <Redirect to="/CourseDashboard"/>      
+        return(            
 <div className="container">
  
             <div className="sidenav">
@@ -14,8 +35,9 @@ class UserComponent extends React.Component{
          </div>
       </div>
       <div className="main">
+         <div style={{display:"flex"}}>
          <div className="col-md-6 col-sm-12">
-            <div className="login-form">
+            <div id="loginForm" className="login-form" >
                <form>
                   <div className="form-group">
                      <label>User Name</label>
@@ -25,15 +47,39 @@ class UserComponent extends React.Component{
                      <label>Password</label>
                      <input type="password" className="form-control" placeholder="Password"/>
                   </div>
-                  <button type="submit" className="btn btn-black" onClick="{ValidateLogin}">Login</button>
-                  <button type="submit" className="btn btn-secondary">Register</button>
+                  <button className="btn btn-black"  onClick={this.validateUser}>Login</button>
+                 
                </form>
             </div>
+
+           
          </div>
+
+         <div className="col-md-6 col-sm-12">
+
+            <div id="loginForm" className="login-form" >
+               <form>
+                  <div className="form-group">
+                     <label>User Name</label>
+                     <input type="text" className="form-control" placeholder="User Name"/>
+                  </div>
+                  <div className="form-group">
+                     <label>Password</label>
+                     <input type="password" className="form-control" placeholder="Password"/>
+                  </div>
+                  
+                  <button type="submit" className="btn btn-secondary" >Register</button>
+               </form>
+            </div>
+
+           
+         </div>
+         </div>      
       </div>
+
     </div>
         )
     }
 }
 
-export default UserComponent;
+export  default UserComponent;

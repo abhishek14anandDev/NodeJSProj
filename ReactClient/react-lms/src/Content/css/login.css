@@ -2,7 +2,9 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-
+.loginForm{
+    text-align: left;
+}
 
 .main-head{
     height: 150px;
@@ -15,6 +17,10 @@ body {
     background-color: #000;
     overflow-x: hidden;
     padding-top: 20px;
+}
+
+.contentnav{
+    height: 100%;
 }
 
 
@@ -45,12 +51,21 @@ body {
         width: 40%;
         position: fixed;
         z-index: 1;
+        
+        left: 0;
+    }
+    .contentnav{
+        width: 60%;
+        position: fixed;
+        z-index: 1;
         top: 0;
         left: 0;
     }
+    
 
     .login-form{
-        margin-top: 80%;
+        margin-top: 70%;
+        text-align: left;
     }
 
     .register-form{
