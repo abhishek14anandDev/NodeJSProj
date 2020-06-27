@@ -10,7 +10,7 @@ class UserComponent extends React.Component{
       super(props)
       this.status = false;
    }
-   state = {status : false,EmailId:'',password : ''}
+   state = {status : false,EmailId:'',password : '',fullName :'',userType:''}
     
    HandleuserNameChanges = (event) =>{
       this.setState({EmailId : event.target.value})
@@ -39,16 +39,41 @@ class UserComponent extends React.Component{
          )
          .catch(err=>{
             
-            alert(err + "I am in catch block")
+            alert('invalid credential')
             
             //this.setState({status:true})
          })
      
    }
+
+   handleChange = (event) =>{
+      var id  =   event.target.id;
+      if(id === 'fullName'){
+          this.setState({fullName : event.target.value})
+      }else if(id === 'userType'){
+          this.setState({userType: event.target.value})
+      }else if(id === 'userEmailId'){          
+          this.setState({EmailId: event.target.value})          
+      }else if(id === 'password'){          
+         this.setState({password: event.target.value})
+    }
+   }
+
+   RegisterUser = () =>{
+      axios.post('http://localhost:8000/register',{
+         "fullName": this.state.fullName,
+         "TypeOfuser": this.state.userType,
+         "EmailId":this.state.EmailId,
+         "password":this.state.password
+      }).then(res=>{
+         alert(res.data.SuccessMessage)
+      }).catch(err=>alert(err))
+   }
     render(){ 
       
        if(this.state.status)
-         return <Redirect to="/CourseDashboard"/>      
+         return <Redirect to="/CourseDashboard"/>
+         
         return(            
 <div className="container">
  
@@ -79,21 +104,29 @@ class UserComponent extends React.Component{
            
          </div>
 
-         <div className="col-md-6 col-sm-12">
+         <div className="col-md-6 col-sm-12" style={{marginBottom:"35px"}}>
 
             <div id="loginForm" className="login-form" >
-               <form>
+             
                   <div className="form-group">
-                     <label>User Name</label>
-                     <input type="text" className="form-control" placeholder="User Name"/>
+                     <label>Full name</label>
+                     <input id="fullName" type="text" className="form-control" placeholder="Enter your name" onChange={this.handleChange}/>
+                  </div>
+                  <div className="form-group">
+                     <label>User type</label>
+                     <input id="userType" type="text" className="form-control" placeholder="Enter your user type" onChange={this.handleChange}/>
+                  </div>
+                  <div className="form-group">
+                     <label>Email id</label>
+                     <input id="userEmailId" type="Emailid" className="form-control" placeholder="Enter your email id" onChange={this.handleChange}/>
                   </div>
                   <div className="form-group">
                      <label>Password</label>
-                     <input type="password" className="form-control" placeholder="Password"/>
+                     <input type="password" className="form-control" placeholder="Password" onChange={this.handleChange}/>
                   </div>
                   
-                  <button type="submit" className="btn btn-secondary" >Register</button>
-               </form>
+                  <button type="submit" className="btn btn-secondary" onClick={this.RegisterUser}>Register</button>
+              
             </div>
 
            
